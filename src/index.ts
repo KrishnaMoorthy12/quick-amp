@@ -1,9 +1,9 @@
 import express from 'express';
 import { createTransport } from 'nodemailer';
 import { config } from 'dotenv';
+import { readFile } from 'fs/promises';
+import path from 'path';
 config();
-
-import { ampContent } from './ampContent.html';
 
 const app = express();
 
@@ -19,6 +19,10 @@ const mailer = createTransport({
 });
 
 app.get('/send', async (_req, res) => {
+  const ampContent = await readFile(path.resolve(__dirname, 'ampContent.html'), {
+    encoding: 'utf-8',
+  });
+
   const email = await mailer.sendMail({
     to: 'akrishnamoorthy007@gmail.com',
     from: '"SMTP Test" <collegematewebapp@gmail.com>',
