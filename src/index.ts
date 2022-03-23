@@ -34,6 +34,22 @@ app.get('/send', async (_req, res) => {
   res.send(`Mail sent, ${email.messageId}`);
 });
 
+app.get('/shop', async (_req, res) => {
+  const smartShop = await readFile(path.resolve(__dirname, 'smart-cart.html'), {
+    encoding: 'utf-8',
+  });
+
+  const email = await mailer.sendMail({
+    to: 'akrishnamoorthy007@gmail.com',
+    from: '"SMTP Test" <collegematewebapp@gmail.com>',
+    subject: 'Smart purchase email',
+    html: `AMP not supported`,
+    amp: smartShop,
+  });
+
+  res.send(`Mail sent, ${email.messageId}`);
+});
+
 app.listen(8080, () => {
   console.log('Server started');
 });

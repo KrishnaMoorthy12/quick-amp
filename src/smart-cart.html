@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html ⚡4email data-css-strict>
+  <head>
+    <meta charset="utf-8" />
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
+    <script
+      async
+      custom-element="amp-list"
+      src="https://cdn.ampproject.org/v0/amp-list-0.1.js"
+    ></script>
+    <script
+      async
+      custom-template="amp-mustache"
+      src="https://cdn.ampproject.org/v0/amp-mustache-0.2.js"
+    ></script>
+    <script
+      async
+      custom-element="amp-bind"
+      src="https://cdn.ampproject.org/v0/amp-bind-0.1.js"
+    ></script>
+    <script
+      async
+      custom-element="amp-form"
+      src="https://cdn.ampproject.org/v0/amp-form-0.1.js"
+    ></script>
+    <style amp4email-boilerplate>
+      body {
+        visibility: hidden;
+      }
+    </style>
+
+    <style amp-custom>
+      body {
+        padding: 20px;
+      }
+      amp-list div[role='list'] {
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        gap: 1rem;
+      }
+
+      .item {
+        position: relative;
+        border: solid 1px black;
+        border-radius: 4px;
+      }
+
+      .item-info {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        padding: 7px;
+      }
+
+      .item-image {
+        border-radius: 3px;
+      }
+
+      .item-name {
+        font-size: 24px;
+        color: currentcolor;
+        text-decoration: none;
+      }
+
+      .item-price {
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding: 6px;
+        background-color: black;
+        color: white;
+        border-radius: 3px;
+      }
+
+      .add-btn {
+        border-radius: 100%;
+        background-color: teal;
+        color: white;
+        font-size: 20px;
+      }
+
+      button {
+        border: none;
+      }
+
+      .purchase-btn {
+        padding: 1ex 2ex;
+        text-transform: uppercase;
+        text-decoration: none;
+        color: currentColor;
+        font-size: 16px;
+        letter-spacing: 0.3ex;
+        background: gold;
+        border-radius: 3px;
+        border: 1px solid orange;
+      }
+
+      .success {
+        background-color: hsla(120, 77%, 43%, 0.322);
+        color: hsl(120, 67%, 25%);
+        border: hsl(120, 67%, 25%);
+        border-radius: 8px;
+        margin-top: 24px;
+        padding: 12px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <main>
+      <h1>AMP Shopping</h1>
+      <h3>Select the products you want to buy</h3>
+      <div class="holy-grail">
+        <amp-state id="items">
+          <script type="application/json">
+            []
+          </script>
+        </amp-state>
+
+        <amp-list
+          layout="responsive"
+          height="300"
+          width="600"
+          src="https://quick-server-krishh.herokuapp.com/products"
+          binding="no"
+        >
+          <template type="amp-mustache">
+            <div class="item">
+              <amp-img
+                src="{{image}}"
+                class="item-image"
+                width="140"
+                height="140"
+                layout="responsive"
+                alt="{{name}}"
+              >
+              </amp-img>
+              <div class="item-info">
+                <a class="item-name" href="{{link}}">{{name}}</a>
+                <span class="item-price">{{price}}</span>
+                <button class="add-btn" on="tap:AMP.setState({items: items.concat(['{{id}}'])})">
+                  +
+                </button>
+              </div>
+            </div>
+          </template>
+        </amp-list>
+        <div class="cart">
+          <h3>Your Cart:</h3>
+
+          <p [hidden]="!items[0]" [text]="items[0]"></p>
+          <p [hidden]="!items[1]" [text]="items[1]"></p>
+          <p [hidden]="!items[2]" [text]="items[2]"></p>
+
+          <form method="post" action-xhr="https://quick-server-krishh.herokuapp.com/add-to-cart">
+            <input type="text" name="items" hidden [value]="''+items" />
+            <input class="purchase-btn" type="submit" value="Purchase" />
+
+            <div submit-success>
+              <template type="amp-mustache">
+                <div class="success">
+                  <p>Items added to your cart, Click on Checkout to proceed.</p>
+                  <a class="purchase-btn" href="https://quick-server-krishh.herokuapp.com/checkout"
+                    >Checkout</a
+                  >
+                </div>
+              </template>
+            </div>
+            <div submit-error>
+              <template type="amp-mustache"> Failed! </template>
+            </div>
+          </form>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
