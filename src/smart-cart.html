@@ -5,6 +5,11 @@
     <script async src="https://cdn.ampproject.org/v0.js"></script>
     <script
       async
+      custom-element="amp-anim"
+      src="https://cdn.ampproject.org/v0/amp-anim-0.1.js"
+    ></script>
+    <script
+      async
       custom-element="amp-list"
       src="https://cdn.ampproject.org/v0/amp-list-0.1.js"
     ></script>
@@ -156,6 +161,16 @@
           <form method="post" action-xhr="https://quick-server-krishh.herokuapp.com/add-to-cart">
             <input type="text" name="items" hidden [value]="''+items" />
             <input class="purchase-btn" type="submit" value="Purchase" />
+
+            <div submitting>
+              <amp-anim
+                src="https://cdn.dribbble.com/users/503653/screenshots/3143656/media/fbde4975c6d1b013c9eca5fbd1f19fb5.gif"
+                height="50"
+                width="50"
+                alt="Loading..."
+              >
+              </amp-anim>
+            </div>
 
             <div submit-success>
               <template type="amp-mustache">
