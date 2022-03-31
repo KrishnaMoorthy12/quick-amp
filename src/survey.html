@@ -20,15 +20,6 @@
         font: Roboto, sans-serif;
       }
 
-      @keyframes spin {
-        0% {
-          transform: rotate(0deg);
-        }
-        100% {
-          transform: rotate(360deg);
-        }
-      }
-
       input {
         display: block;
         margin-bottom: 10px;
@@ -112,7 +103,13 @@
       <input type="submit" class="btn" value="Submit" />
 
       <div submitting>
-        <div class="loader"></div>
+        <amp-anim
+          src="https://cdn.dribbble.com/users/503653/screenshots/3143656/fluid-loader.gif"
+          height="50"
+          width="50"
+          alt="Loading..."
+        ></amp-anim>
+        Loading...
       </div>
 
       <div submit-success><h3 class="success">Response submitted successfully.</h3></div>
