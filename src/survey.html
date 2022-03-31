@@ -65,6 +65,12 @@
         letter-spacing: 0.2ch;
       }
 
+      .loading {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+
       .success,
       .failure {
         padding: 1rem;
@@ -99,18 +105,22 @@
       <input type="submit" class="btn" value="Submit" />
 
       <div submitting>
-        <amp-anim
-          src="https://cdn.dribbble.com/users/503653/screenshots/3143656/fluid-loader.gif"
-          height="50"
-          width="50"
-          alt="Loading..."
-        ></amp-anim>
-        Loading...
+        <div class="loading">
+          <amp-anim
+            src="https://cdn.dribbble.com/users/503653/screenshots/3143656/fluid-loader.gif"
+            height="50"
+            width="50"
+            alt="Loading..."
+          ></amp-anim>
+          <p>Loading...</p>
+        </div>
       </div>
 
-      <div submit-success><h3 class="success">Response submitted successfully.</h3></div>
       <div submit-success>
-        <h3 class="failure">There was an error submitting your response.</h3>
+        <p class="success">Response submitted successfully.</p>
+      </div>
+      <div submit-error>
+        <p class="failure">There was an error submitting your response.</p>
       </div>
     </form>
   </body>
