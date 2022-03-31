@@ -27,5 +27,8 @@ export async function sendAmpEmail(subject: string, ampFilePath: string) {
     amp: ampContent,
   });
 
+  console.log(`${subject} mail has been sent`);
+  console.log(`id: ${email.messageId}`);
+
   return email;
 }

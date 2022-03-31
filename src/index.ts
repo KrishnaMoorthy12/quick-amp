@@ -21,7 +21,7 @@ app.get('/survey', async (_req, res) => {
   const surveyEmail = await sendAmpEmail('Survey FORM Email with AMP', 'survey.html');
 
   res.send(
-    `Survey Email sent to: ${surveyEmail.envelope}. The message id is: ${surveyEmail.messageId}`
+    `Survey Email sent to: ${surveyEmail.envelope.to}. The message id is: ${surveyEmail.messageId}`
   );
 });
 
