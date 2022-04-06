@@ -13,6 +13,11 @@
       custom-element="amp-anim"
       src="https://cdn.ampproject.org/v0/amp-anim-0.1.js"
     ></script>
+    <script
+      async
+      custom-element="amp-list"
+      src="https://cdn.ampproject.org/v0/amp-list-0.1.js"
+    ></script>
     <style amp4email-boilerplate>
       body {
         visibility: hidden;
@@ -72,7 +77,8 @@
       }
 
       .success,
-      .failure {
+      .failure,
+      .submitted {
         padding: 1rem;
         border: 1px solid;
         border-radius: 3px;
@@ -84,7 +90,8 @@
         color: tomato;
       }
 
-      .success {
+      .success,
+      .submitted {
         background-color: rgba(0, 128, 128, 0.206);
         color: teal;
       }
@@ -92,36 +99,55 @@
   </head>
   <body>
     <h1>Sample Survey form</h1>
-    <form method="POST" action-xhr="https://quick-server-krishh.herokuapp.com/survey">
-      <label for="fullName">Full Name</label>
-      <input type="text" name="fullName" id="fullName" />
+    <amp-list
+      layout="fixed-height"
+      height="100"
+      src="https://quick-server-krishh.herokuapp.com/is-survey-submitted/krish_the_dev"
+      binding="no"
+      single-item
+      items="."
+    >
+      <template type="amp-mustache">
+        {{#submitted}}
+        <p class="submitted">Thank you, you have already responded to this survey.</p>
+        {{/submitted}} {{^submitted}}
 
-      <label for="age">Age</label>
-      <input type="number" name="age" id="age" />
+        <form method="POST" action-xhr="https://quick-server-krishh.herokuapp.com/survey">
+          <input type="hidden" name="userId" value="krish_the_dev" />
 
-      <label for="doj">Date of Joining</label>
-      <input type="date" name="dateOfJoining" id="doj" />
+          <label for="fullName">Full Name</label>
+          <input type="text" name="fullName" id="fullName" />
 
-      <input type="submit" class="btn" value="Submit" />
+          <label for="age">Age</label>
+          <input type="number" name="age" id="age" />
 
-      <div submitting>
-        <div class="loading">
-          <amp-anim
-            src="https://cdn.dribbble.com/users/503653/screenshots/3143656/fluid-loader.gif"
-            height="50"
-            width="50"
-            alt="Loading..."
-          ></amp-anim>
-          <p>Loading...</p>
-        </div>
-      </div>
+          <label for="doj">Date of Joining</label>
+          <input type="date" name="dateOfJoining" id="doj" />
 
-      <div submit-success>
-        <p class="success">Response submitted successfully.</p>
-      </div>
-      <div submit-error>
-        <p class="failure">There was an error submitting your response.</p>
-      </div>
-    </form>
+          <input type="submit" class="btn" value="Submit" />
+
+          <div submitting>
+            <div class="loading">
+              <amp-anim
+                src="https://cdn.dribbble.com/users/503653/screenshots/3143656/fluid-loader.gif"
+                height="50"
+                width="50"
+                alt="Loading..."
+              ></amp-anim>
+              <p>Loading...</p>
+            </div>
+          </div>
+
+          <div submit-success>
+            <p class="success">Response submitted successfully.</p>
+          </div>
+          <div submit-error>
+            <p class="failure">There was an error submitting your response.</p>
+          </div>
+        </form>
+
+        {{/submitted}}
+      </template>
+    </amp-list>
   </body>
 </html>
