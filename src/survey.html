@@ -83,6 +83,7 @@
 
       .success,
       .failure,
+      .error,
       .submitted {
         padding: 1rem;
         border: 1px solid;
@@ -90,7 +91,8 @@
         border-color: currentColor;
       }
 
-      .failure {
+      .failure,
+      .error {
         background-color: hsla(9, 100%, 64%, 0.23);
         color: tomato;
       }
@@ -112,6 +114,9 @@
       single-item
       items="."
     >
+      <div fallback>
+        <p class="error">Unable to contact the server, please try again later</p>
+      </div>
       <template type="amp-mustache">
         {{#submitted}}
         <p class="submitted">Thank you, you have already responded to this survey.</p>
