@@ -6,7 +6,7 @@ config();
 const app = express();
 
 app.get('/send', async (_req, res) => {
-  const email = await sendAmpEmail('Sample AMP Email', 'ampContent.html');
+  const email = await sendAmpEmail('Sample AMP Email', 'shipment-tracking.html');
 
   res.send(`Mail sent, ${email.messageId}`);
 });
