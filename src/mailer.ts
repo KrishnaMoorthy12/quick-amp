@@ -20,7 +20,7 @@ export async function sendAmpEmail(subject: string, ampFilePath: string) {
   });
 
   const email = await mailer.sendMail({
-    to: 'akrishnamoorthy007@gmail.com',
+    to: 'akrishnamoorthy007@outlook.com',
     from: '"SMTP Test" <collegematewebapp@gmail.com>',
     subject,
     html: `AMP not supported`,
@@ -28,6 +28,20 @@ export async function sendAmpEmail(subject: string, ampFilePath: string) {
   });
 
   console.log(`${subject} mail has been sent`);
+  console.log(`id: ${email.messageId}`);
+
+  return email;
+}
+
+export async function sendHtmlEmail(sub: string, content: string) {
+  const email = await mailer.sendMail({
+    to: 'akrishnamoorthy007@gmail.com',
+    from: '"SMTP Test" <collegematewebapp@gmail.com>',
+    subject: sub,
+    html: content,
+  });
+
+  console.log(`${sub} mail has been sent`);
   console.log(`id: ${email.messageId}`);
 
   return email;
